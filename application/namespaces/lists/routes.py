@@ -1,9 +1,9 @@
 from flask_restx import Namespace, Resource
 
 list_ns = Namespace(
-    "list",
+    "lists",
     description='List related operations',
-    url_prefix="/list"
+    path="/list"
     )
 
 # class SomeResource(Resource):
