@@ -1,0 +1,39 @@
+version: "3"
+
+services:
+  orodha-list-server:
+    hostname: list-service-server
+    container_name: list-service
+    image: ${DOCKER_USERNAME}/orodha-list-service:${TAG}
+    build:
+      dockerfile: Dockerfile
+      context: .
+    volumes:
+      - ./application:/orodha-list-service/application
+    ports:
+      - "5000:5000"
+    networks:
+      - list-service-network
+
+  orodha-list-mongo:
+    hostname: list-service-mongo
+    container_name: list-service-mongo
+    image: mongo
+    restart: always
+    volumes:
+      - ./scripts/db_scripts:/docker-entrypoint-initdb.d
+    environment:
+      MONGO_INITDB_DATABASE: admin
+      MONGO_INITDB_ROOT_USERNAME: $DBROOTUSER
+      MONGO_INITDB_ROOT_PASSWORD: $DBROOTPASSWORD
+      DBUSER: $DBUSER
+      DBPASSWORD: $DBPASSWORD
+      DBNAME: $DBNAME
+    ports:
+      - "27017:27017"
+    networks:
+      - list-service-network
+
+networks:
+  list-service-network:
+    driver: bridge
