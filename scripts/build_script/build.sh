@@ -32,8 +32,11 @@ if [ -z "$DOCKER_PASSWORD" ];
 	exit 1
 fi
 
+export DOCKER_USERNAME=$DOCKER_USERNAME
+export TAG=$BUILD_TAG
+
 docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 
-docker-compose -f $DOCKER_COMPOSE_FILE build --build-arg DOCKER_USERNAME=$DOCKER_USERNAME --build-arg TAG=$BUILD_TAG
+docker-compose -f $DOCKER_COMPOSE_FILE build
 
 docker-compose -f $DOCKER_COMPOSE_FILE push
