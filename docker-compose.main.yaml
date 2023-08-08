@@ -2,7 +2,7 @@ version: "3"
 
 services:
   orodha-list-server:
-    hostname: list-service-server
+    hostname: list-service
     container_name: list-service
     image: ${DOCKER_USERNAME}/orodha-list-service:${TAG}
     build:
